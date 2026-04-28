@@ -1,23 +1,25 @@
 version: 2
- 
+
 sources:
-  - name: postgres_public # name of the source
-    schema: POSTGRES_PUBLIC # this is the schema our raw data lives in
-    database: ALUMNO34_DEV_BRONZE_DB # this is the name of our database
+  - name: postgres_public
+    schema: POSTGRES_PUBLIC
+    database: ALUMNO34_DEV_BRONZE_DB
 
     quoting:
       database: false
       schema: false
       identifier: false
-
-    freshness:
-      warn_after: {count: 24, period: hour}
-      error_after: {count: 48, period: hour}
+  
+    config:
+      freshness:
+        warn_after: {count: 9999, period: day}    # cambiado de hour a day
+        error_after: {count: 99999, period: day}   # cambiado de hour a day
 
     tables:
 
       - name: POSTGRES_ADDRESSES
-        loaded_at_field: _fivetran_synced
+        config:
+          loaded_at_field: _fivetran_synced
         columns:
           - name: address_id
           - name: zipcode
@@ -28,7 +30,8 @@ sources:
           - name: _fivetran_synced
 
       - name: POSTGRES_ORDERITEMS
-        loaded_at_field: _fivetran_synced
+        config:
+          loaded_at_field: _fivetran_synced
         columns:
           - name: order_id
           - name: product_id
@@ -37,9 +40,9 @@ sources:
           - name: _fivetran_synced
 
       - name: POSTGRES_ORDERS
-        loaded_at_field: _fivetran_synced
+        config:
+          loaded_at_field: _fivetran_synced
         columns:
-          
           - name: order_id
           - name: shipping_service
           - name: shipping_cost
@@ -56,39 +59,21 @@ sources:
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
-      - name: POSTGRES_ORDERS
-        loaded_at_field: _fivetran_synced
+      - name: POSTGRES_PRODUCTS
+        config:
+          loaded_at_field: _fivetran_synced
         columns:
-          
-          
           - name: product_id
           - name: price
           - name: name
           - name: inventory
           - name: _fivetran_deleted
           - name: _fivetran_synced
-          - name: user_id
-          - name: order_total
-          - name: delivered_at
-          - name: tracking_id
-          - name: status
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
 
-      - name: POSTGRES_ORDERS
-        loaded_at_field: _fivetran_synced
+      - name: POSTGRES_PROMOS
+        config:
+          loaded_at_field: _fivetran_synced
         columns:
-              
-          - name: promo_id
-          - name: discount
-          - name: status
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
-
-      - name: POSTGRES_ORDERS
-        loaded_at_field: _fivetran_synced
-        columns:
-              
           - name: promo_id
           - name: discount
           - name: status
@@ -96,10 +81,9 @@ sources:
           - name: _fivetran_synced
 
       - name: POSTGRES_USER
-        loaded_at_field: _fivetran_synced
+        config:
+          loaded_at_field: _fivetran_synced
         columns:
-              
-          
           - name: user_id
           - name: updated_at
           - name: address_id
@@ -111,4 +95,3 @@ sources:
           - name: email
           - name: _fivetran_deleted
           - name: _fivetran_synced
-
