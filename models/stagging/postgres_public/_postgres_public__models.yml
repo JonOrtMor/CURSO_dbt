@@ -1,0 +1,198 @@
+version: 2
+
+models:
+  - name: stg_postgres_public__addresses
+    description: "Staging model for Postgres addresses data"
+    config:
+      materialized: view
+    columns:
+      - name: address_id
+        description: "Unique address identifier"
+        tests:
+          - not_null
+          - unique
+      - name: zipcode
+        description: "Zip code"
+        tests:
+          - not_null
+      - name: country
+        description: "Country"
+        tests:
+          - not_null
+      - name: address
+        description: "Street address"
+      - name: state
+        description: "State"
+      - name: is_deleted
+        description: "Fivetran soft delete flag"
+      - name: date_load
+        description: "Timestamp when the record was loaded"
+        tests:
+          - not_null
+
+  - name: stg_postgres_public__orderitems
+    description: "Staging model for Postgres order items data"
+    config:
+      materialized: view
+    columns:
+      - name: order_id
+        description: "Order identifier"
+        tests:
+          - not_null
+      - name: product_id
+        description: "Product identifier"
+        tests:
+          - not_null
+      - name: quantity
+        description: "Quantity ordered"
+        tests:
+          - not_null
+      - name: is_deleted
+        description: "Fivetran soft delete flag"
+      - name: date_load
+        description: "Timestamp when the record was loaded"
+        tests:
+          - not_null
+
+  - name: stg_postgres_public__orders
+    description: "Staging model for Postgres orders data"
+    config:
+      materialized: view
+    columns:
+      - name: order_id
+        description: "Unique order identifier"
+        tests:
+          - not_null
+          - unique
+      - name: shipping_service
+        description: "Shipping carrier"
+      - name: shipping_cost
+        description: "Cost of shipping"
+      - name: address_id
+        description: "Delivery address identifier"
+        tests:
+          - not_null
+      - name: created_at
+        description: "Order creation timestamp"
+        tests:
+          - not_null
+      - name: promo_id
+        description: "Promotion identifier if applicable"
+      - name: estimated_delivery_at
+        description: "Estimated delivery timestamp"
+      - name: order_cost
+        description: "Cost of the order without shipping"
+      - name: user_id
+        description: "User identifier"
+        tests:
+          - not_null
+      - name: order_total
+        description: "Total order cost including shipping"
+      - name: delivered_at
+        description: "Actual delivery timestamp"
+      - name: tracking_id
+        description: "Shipment tracking identifier"
+      - name: status
+        description: "Current order status"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['delivered', 'shipped', 'preparing', 'return_pending', 'returned']
+      - name: is_deleted
+        description: "Fivetran soft delete flag"
+      - name: date_load
+        description: "Timestamp when the record was loaded"
+        tests:
+          - not_null
+
+  - name: stg_postgres_public__products
+    description: "Staging model for Postgres products data"
+    config:
+      materialized: view
+    columns:
+      - name: product_id
+        description: "Unique product identifier"
+        tests:
+          - not_null
+          - unique
+      - name: price
+        description: "Product price"
+        tests:
+          - not_null
+      - name: name
+        description: "Product name"
+        tests:
+          - not_null
+      - name: inventory
+        description: "Current stock quantity"
+      - name: is_deleted
+        description: "Fivetran soft delete flag"
+      - name: date_load
+        description: "Timestamp when the record was loaded"
+        tests:
+          - not_null
+
+  - name: stg_postgres_public__promos
+    description: "Staging model for Postgres promotions data"
+    config:
+      materialized: view
+    columns:
+      - name: promo_id
+        description: "Unique promotion identifier"
+        tests:
+          - not_null
+          - unique
+      - name: discount
+        description: "Discount amount"
+        tests:
+          - not_null
+      - name: status
+        description: "Promotion status"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['active', 'inactive']
+      - name: is_deleted
+        description: "Fivetran soft delete flag"
+      - name: date_load
+        description: "Timestamp when the record was loaded"
+        tests:
+          - not_null
+
+  - name: stg_postgres_public__users
+    description: "Staging model for Postgres users data"
+    config:
+      materialized: view
+    columns:
+      - name: user_id
+        description: "Unique user identifier"
+        tests:
+          - not_null
+          - unique
+      - name: updated_at
+        description: "Last update timestamp"
+      - name: address_id
+        description: "User address identifier"
+      - name: last_name
+        description: "User last name"
+      - name: created_at
+        description: "Account creation timestamp"
+        tests:
+          - not_null
+      - name: phone_number
+        description: "User phone number"
+      - name: total_orders
+        description: "Total number of orders placed"
+      - name: first_name
+        description: "User first name"
+      - name: email
+        description: "User email address"
+        tests:
+          - not_null
+          - unique
+      - name: is_deleted
+        description: "Fivetran soft delete flag"
+      - name: date_load
+        description: "Timestamp when the record was loaded"
+        tests:
+          - not_null
