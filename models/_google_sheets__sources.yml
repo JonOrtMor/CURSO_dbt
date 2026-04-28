@@ -10,13 +10,15 @@ sources:
       schema: false
       identifier: false
 
-    freshness:
-      warn_after: {count: 9999, period: hour}
-      error_after: {count: 99999, period: hour}
+    config:
+      freshness:
+        warn_after: {count: 9999, period: hour}
+        error_after: {count: 99999, period: hour}
 
     tables:
       - name: budget
         identifier: GOOGLE_SHEETS_BUDGET
+      
         config:
           loaded_at_field: _fivetran_synced
         columns:

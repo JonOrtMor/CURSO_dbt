@@ -9,10 +9,11 @@ sources:
       database: false
       schema: false
       identifier: false
-
-    freshness:
-      warn_after: {count: 9999, period: day}    # cambiado de hour a day
-      error_after: {count: 99999, period: day}   # cambiado de hour a day
+  
+    config:
+      freshness:
+        warn_after: {count: 9999, period: day}    # cambiado de hour a day
+        error_after: {count: 99999, period: day}   # cambiado de hour a day
 
     tables:
 
