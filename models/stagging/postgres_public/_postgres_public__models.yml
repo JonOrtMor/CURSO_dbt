@@ -97,7 +97,7 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['delivered', 'shipped', 'preparing', 'return_pending', 'returned']
+              values: ['delivered', 'prepared', 'shipping']
       - name: is_deleted
         description: "Fivetran soft delete flag"
       - name: date_load

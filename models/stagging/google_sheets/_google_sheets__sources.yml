@@ -5,11 +5,7 @@ sources:
     schema: GOOGLE_SHEETS
     database: ALUMNO34_DEV_BRONZE_DB
 
-    quoting:
-      database: false
-      schema: false
-      identifier: false
-
+    
     config:
       freshness:
         warn_after: {count: 9999, period: hour}
@@ -17,7 +13,7 @@ sources:
 
     tables:
       - name: budget
-        identifier: GOOGLE_SHEETS_BUDGET
+        #identifier: GOOGLE_SHEETS_BUDGET
       
         config:
           loaded_at_field: _fivetran_synced
@@ -27,3 +23,10 @@ sources:
           - name: quantity
           - name: month
           - name: _fivetran_synced
+
+      - name: users
+        columns:
+          - name: Nombre
+          - name: DNI
+          - name: email
+          - name: fecha_alta_sistema
